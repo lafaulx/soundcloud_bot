@@ -1,0 +1,25 @@
+{
+  "name": "sndcld_bot",
+  "version": "1.0.0",
+  "description": "Telegram bot for SoundCloud",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://lafaulx@bitbucket.org/lafaulx/sndcld_bot.git"
+  },
+  "keywords": [
+    "telegram",
+    "bot",
+    "soundcloud"
+  ],
+  "author": "Yaroslav Kravchenko",
+  "license": "MIT",
+  "homepage": "https://bitbucket.org/lafaulx/sndcld_bot#readme",
+  "dependencies": {
+    "node-telegram-bot-api": "^0.23.3",
+    "soundcloud": "^3.1.2"
+  }
+}

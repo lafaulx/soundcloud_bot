@@ -1,0 +1,6 @@
+module.exports = {
+  TELEGRAM_AUTH_TOKEN: '',
+
+  SOUNDCLOUD_CLIENT_ID: '',
+  SOUNDCLOUD_CLIENT_SECRET: ''
+};
