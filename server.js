@@ -1,9 +1,10 @@
 const MongoClient = require('mongodb').MongoClient;
 const bunyan = require('bunyan');
-const telegramNodeBot = require('telegram-node-bot');
 
 const config = require('./local_config');
-const SCApi = require('./SCApi');
+const SC = require('./lib/SC');
+const DB = require('./lib/DB');
+const T = require('./lib/T');
 
 const MONGODB_ADDR = config.MONGODB_ADDR;
 const MONGODB_PORT = config.MONGODB_PORT;
@@ -16,38 +17,13 @@ const mongodbUrl = `mongodb://${MONGODB_ADDR}:${MONGODB_PORT}/${MONGODB_DB}`;
 const log = bunyan.createLogger({
   name: 'sndcld_bot'
 });
-const tg = telegramNodeBot(TELEGRAM_AUTH_TOKEN);
-const api = new SCApi(SOUNDCLOUD_CLIENT_ID);
 
-MongoClient.connect(mongodbUrl, function(err, db) {
+MongoClient.connect(mongodbUrl, function(err, dbConn) {
   log.info('Connected to MongoDB');
 
-  tg.router.when(['/peek :username'], 'PeekController');
+  const sc = new SC(SOUNDCLOUD_CLIENT_ID);
+  const db = new DB(dbConn);
+  new T(TELEGRAM_AUTH_TOKEN, sc, db);
 
-  tg.controller('PeekController', ($) => {
-    tg.for('/peek :username', ($) => {
-      const username = $.query.username;
-
-      log.info('Watch user started: ', $);
-
-      api.searchUser(username).then(function(users) {
-        log.info('Sending reply: ', users);
-
-        const response = users.reduce(function(prev, cur, i) {
-          return prev + `*${i}.* [${cur.permalink}](${cur.permalink_url})\n`;
-        }, '*Choose the user:*\n');
-
-        $.sendMessage(response, {
-          parse_mode: 'Markdown',
-          disable_web_page_preview: true
-        });
-
-        $.waitForRequest(($) => {
-          $.sendMessage('Hi ' + $.message.text + '!');
-        });
-      }, function(error) {
-        log.error(error);
-      });
-    });
-  });
+  log.info('SoundCloud Bot started');
 });
