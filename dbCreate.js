@@ -1,6 +1,7 @@
 const MongoClient = require('mongodb').MongoClient;
 const bunyan = require('bunyan');
 const async = require('async');
+const _ = require('lodash');
 
 const config = require('./local_config');
 const DB_COLLECTIONS = require('./lib/consts/dbCollections');
