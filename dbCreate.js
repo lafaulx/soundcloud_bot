@@ -28,6 +28,11 @@ MongoClient.connect(mongodbUrl, function(err, db) {
       db.collection(DB_COLLECTIONS.SOUNDCLOUD_USERS).ensureIndex('id', {
         unique: true
       }, cb);
+    },
+    function(cb) {
+      db.collection(DB_COLLECTIONS.SOUNDCLOUD_TRACKS).ensureIndex('id', {
+        unique: true
+      }, cb);
     }
   ], function(err, results) {
     if (err) {
