@@ -4,7 +4,7 @@
   "description": "Telegram bot for SoundCloud",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "supervisor -i node_modules -e js server.js | bunyan"
   },
   "repository": {
     "type": "git",
