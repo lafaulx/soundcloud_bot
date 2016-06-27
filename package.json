@@ -4,7 +4,8 @@
   "description": "Telegram bot for SoundCloud",
   "main": "index.js",
   "scripts": {
-    "start": "supervisor -i node_modules -e js server.js | bunyan"
+    "start": "supervisor -i node_modules -e js server.js | bunyan",
+    "cron": "supervisor -i node_modules -e js cron.js | bunyan"
   },
   "repository": {
     "type": "git",
@@ -21,6 +22,7 @@
   "dependencies": {
     "async": "^2.0.0-rc.6",
     "axios": "^0.12.0",
+    "cron": "^1.1.0",
     "lodash": "^4.13.1",
     "mongodb": "^2.1.18",
     "telegram-node-bot": "git+https://github.com/lafaulx/telegram-node-bot.git"
