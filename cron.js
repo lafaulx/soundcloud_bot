@@ -25,9 +25,9 @@ const log = bunyan.createLogger({
   name: 'sndcld_bot_create_db'
 });
 
-new CronJob({
-  cronTime: '00 00 */2 * * *',
-  onTick: function() {
+// new CronJob({
+//   cronTime: '00 00 */2 * * *',
+//   onTick: function() {
     MongoClient.connect(mongodbUrl, function(err, dbConn) {
       log.info('Connected to MongoDB');
 
@@ -36,6 +36,6 @@ new CronJob({
 
       ops.updateTracks().then(() => dbConn.close());
     });
-  },
-  start: true
-});
+//   },
+//   start: true
+// });

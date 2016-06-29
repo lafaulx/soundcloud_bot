@@ -41,3 +41,4 @@ jspm_packages
 
 local_config.js
 .DS_Store
+lib/temp
