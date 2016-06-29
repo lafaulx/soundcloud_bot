@@ -13,7 +13,7 @@ const MONGODB_PORT = config.MONGODB_PORT;
 const MONGODB_DB = config.MONGODB_DB;
 const TELEGRAM_AUTH_TOKEN = config.TELEGRAM_AUTH_TOKEN;
 const SOUNDCLOUD_CLIENT_ID = config.SOUNDCLOUD_CLIENT_ID;
-
+const TEMP_DIR = config.TEMP_DIR;
 
 const mongodbUrl = `mongodb://${MONGODB_ADDR}:${MONGODB_PORT}/${MONGODB_DB}`;
 
@@ -24,7 +24,7 @@ const log = bunyan.createLogger({
 MongoClient.connect(mongodbUrl, function(err, dbConn) {
   log.info('Connected to MongoDB');
 
-  const sc = scFn(SOUNDCLOUD_CLIENT_ID);
+  const sc = scFn(SOUNDCLOUD_CLIENT_ID, TEMP_DIR);
   const db = dbFn(dbConn);
 
   t(TELEGRAM_AUTH_TOKEN, _.curry(opsFn)(sc, db));
