@@ -5,8 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "supervisor -i node_modules -e js server.js | bunyan",
-    "cron": "supervisor -i node_modules -e js cron.js | bunyan",
-    "start-prod": "forever stopall && forever start server.js && forever start cron.js"
+    "start-prod": "forever stopall && forever start server.js"
   },
   "repository": {
     "type": "git",

@@ -2,6 +2,7 @@ const MongoClient = require('mongodb').MongoClient;
 const bunyan = require('bunyan');
 const telegramNodeBot = require('telegram-node-bot');
 const bugsnag = require('bugsnag');
+const CronJob = require('cron').CronJob;
 
 const config = require('./local_config');
 const scFn = require('./lib/sc');
@@ -35,6 +36,14 @@ bugsnag.autoNotify(function() {
     const ops = opsFn(sc, db, tg);
 
     t(tg, ops);
+
+    new CronJob({
+      cronTime: '00 00 */2 * * *',
+      onTick: function() {
+        ops.updateTracks();
+      },
+      start: true
+    });
 
     log.info('SoundCloud Bot started');
   });
