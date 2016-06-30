@@ -8,5 +8,7 @@ module.exports = {
   MONGODB_PORT: '27017',
   MONGODB_DB: 'sndcld_bot',
 
-  TEMP_DIR: ''
+  TEMP_DIR: '',
+
+  BUGSNAG_TOKEN: ''
 };

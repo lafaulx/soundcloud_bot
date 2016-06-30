@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "start": "supervisor -i node_modules -e js server.js | bunyan",
-    "cron": "supervisor -i node_modules -e js cron.js | bunyan"
+    "cron": "supervisor -i node_modules -e js cron.js | bunyan",
+    "start-prod": "forever stopall && forever start server.js && forever start cron.js"
   },
   "repository": {
     "type": "git",
@@ -22,6 +23,8 @@
   "dependencies": {
     "async": "^2.0.0-rc.6",
     "axios": "^0.12.0",
+    "bugsnag": "^1.7.0",
+    "bunyan": "^1.8.1",
     "cron": "^1.1.0",
     "lodash": "^4.13.1",
     "mongodb": "^2.1.18",

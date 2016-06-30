@@ -1,6 +1,7 @@
 const MongoClient = require('mongodb').MongoClient;
 const bunyan = require('bunyan');
-const _ = require('lodash');
+const telegramNodeBot = require('telegram-node-bot');
+const bugsnag = require('bugsnag');
 
 const config = require('./local_config');
 const scFn = require('./lib/sc');
@@ -13,6 +14,7 @@ const MONGODB_PORT = config.MONGODB_PORT;
 const MONGODB_DB = config.MONGODB_DB;
 const TELEGRAM_AUTH_TOKEN = config.TELEGRAM_AUTH_TOKEN;
 const SOUNDCLOUD_CLIENT_ID = config.SOUNDCLOUD_CLIENT_ID;
+const BUGSNAG_TOKEN = config.BUGSNAG_TOKEN;
 const TEMP_DIR = config.TEMP_DIR;
 
 const mongodbUrl = `mongodb://${MONGODB_ADDR}:${MONGODB_PORT}/${MONGODB_DB}`;
@@ -21,13 +23,19 @@ const log = bunyan.createLogger({
   name: 'sndcld_bot'
 });
 
-MongoClient.connect(mongodbUrl, function(err, dbConn) {
-  log.info('Connected to MongoDB');
+bugsnag.register(BUGSNAG_TOKEN);
 
-  const sc = scFn(SOUNDCLOUD_CLIENT_ID, TEMP_DIR);
-  const db = dbFn(dbConn);
+bugsnag.autoNotify(function() {
+  MongoClient.connect(mongodbUrl, function(err, dbConn) {
+    log.info('Connected to MongoDB');
 
-  t(TELEGRAM_AUTH_TOKEN, _.curry(opsFn)(sc, db));
+    const sc = scFn(SOUNDCLOUD_CLIENT_ID, TEMP_DIR);
+    const db = dbFn(dbConn);
+    const tg = telegramNodeBot(TELEGRAM_AUTH_TOKEN);
+    const ops = opsFn(sc, db, tg);
 
-  log.info('SoundCloud Bot started');
+    t(tg, ops);
+
+    log.info('SoundCloud Bot started');
+  });
 });
