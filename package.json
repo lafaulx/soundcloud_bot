@@ -26,6 +26,7 @@
     "bunyan": "^1.8.1",
     "cron": "^1.1.0",
     "lodash": "^4.13.1",
+    "moment": "^2.14.1",
     "mongodb": "^2.1.18",
     "telegram-node-bot": "git+https://github.com/lafaulx/telegram-node-bot.git"
   }

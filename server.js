@@ -38,7 +38,7 @@ bugsnag.autoNotify(function() {
     t(tg, ops);
 
     new CronJob({
-      cronTime: '00 00 */2 * * *',
+      cronTime: '00 00 */12 * * *',
       onTick: function() {
         ops.updateTracks();
       },
