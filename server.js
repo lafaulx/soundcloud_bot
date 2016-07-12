@@ -45,6 +45,14 @@ bugsnag.autoNotify(function() {
       start: true
     });
 
+    new CronJob({
+      cronTime: '00 00 * * * *',
+      onTick: function() {
+        ops.updateUsers();
+      },
+      start: true
+    });
+
     log.info('SoundCloud Bot started');
   });
 });
