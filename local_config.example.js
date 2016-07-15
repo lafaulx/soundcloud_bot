@@ -6,9 +6,5 @@ module.exports = {
 
   MONGODB_ADDR: 'localhost',
   MONGODB_PORT: '27017',
-  MONGODB_DB: 'sndcld_bot',
-
-  TEMP_DIR: '',
-
-  BUGSNAG_TOKEN: ''
+  MONGODB_DB: 'sndcld_bot'
 };
