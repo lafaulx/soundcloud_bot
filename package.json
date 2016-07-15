@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "supervisor -i node_modules -e js server.js | bunyan",
-    "start-prod": "forever stopall && forever start server.js",
+    "start-prod": "forever stopall && rm -rf node_modules/ && npm install --no-optional && forever start server.js",
     "create-db": "node dbCreate.js | bunyan"
   },
   "repository": {
@@ -28,6 +28,6 @@
     "lodash": "^4.13.1",
     "moment": "^2.14.1",
     "mongodb": "^2.1.18",
-    "telegram-node-bot": "git+https://github.com/lafaulx/telegram-node-bot.git"
+    "telegram-node-bot": "^3.0.10"
   }
 }

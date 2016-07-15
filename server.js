@@ -1,6 +1,6 @@
 const MongoClient = require('mongodb').MongoClient;
 const bunyan = require('bunyan');
-const telegramNodeBot = require('telegram-node-bot');
+const Telegram = require('telegram-node-bot').Telegram;
 const CronJob = require('cron').CronJob;
 
 const config = require('./local_config');
@@ -26,7 +26,7 @@ MongoClient.connect(mongodbUrl, function(err, dbConn) {
 
   const sc = scFn(SOUNDCLOUD_CLIENT_ID);
   const db = dbFn(dbConn);
-  const tg = telegramNodeBot(TELEGRAM_AUTH_TOKEN);
+  const tg = new Telegram(TELEGRAM_AUTH_TOKEN);
   const ops = opsFn(sc, db, tg);
 
   t(tg, ops);
