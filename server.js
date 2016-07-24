@@ -34,7 +34,7 @@ MongoClient.connect(mongodbUrl, function(err, dbConn) {
   t(tg, ops);
 
   new CronJob({
-    cronTime: '00 00 */12 * * *',
+    cronTime: '00 00 */6 * * *',
     onTick: function() {
       ops.updateTracks();
     },
@@ -42,7 +42,7 @@ MongoClient.connect(mongodbUrl, function(err, dbConn) {
   });
 
   new CronJob({
-    cronTime: '00 00 * * * *',
+    cronTime: '00 00 */12 * * *',
     onTick: function() {
       ops.updateUsers();
     },
